@@ -16,7 +16,7 @@ cd $dossier_spigotinstall 2> /dev/null
 
 if cd $dossier_spigotinstall 2> /dev/null; then echo " "  ; else echo -e "\e[32mThe folder does not exist therefore it has been created.\e[0m" && mkdir -p $dossier_spigotinstall ; fi 
 cd /tmp/minecraftinstall_files/
-OPTION=$(whiptail --nocancel --title "McInstall" --menu "Choose your version (using the keyboard arrows and then press enter) By installing Paper you agree with Paper's and Mojang's EULA." 15 60 4 \
+OPTION=$(whiptail --nocancel --title "Paper Install" --menu "Choose your version (using the keyboard arrows and then press enter) By installing Paper you agree with Paper's and Mojang's EULA." 15 60 4 \
 "1" "1.8.8" \
 "2" "1.9.4" \
 "3" "1.10.2" \
@@ -72,8 +72,8 @@ fi
 fi
 cp /tmp/minecraftinstall_files/launch.sh $dossier_spigotinstall/launch.sh
 cp /tmp/minecraftinstall_files/eula.txt $dossier_spigotinstall/eula.txt
-servername=$(whiptail --title "McInstall" --inputbox "Choose your server's name. (Ex : server, server1 or server2)" 10 60  3>&1 1>&2 2>&3)
-    RAM=$(whiptail --title "McInstall" --inputbox "How much RAM do you want to allocate to your server ? (Express it in G or M, Example : 2G or 2000M )" 10 60  3>&1 1>&2 2>&3)
+servername=$(whiptail --title "Paper Install" --inputbox "Choose your server's name. (Ex : server, server1 or server2)" 10 60  3>&1 1>&2 2>&3)
+    RAM=$(whiptail --title "Paper Install" --inputbox "How much RAM do you want to allocate to your server ? (Express it in G or M, Example : 2G or 2000M )" 10 60  3>&1 1>&2 2>&3)
 sed -i "s/2G/$RAM /g" $dossier_spigotinstall/launch.sh
 sed -i "s/server/$servername /g" $dossier_spigotinstall/launch.sh
 echo "Directory : $dossier_spigotinstall" >> $dossier_spigotinstall/INFORMATIONS.txt
@@ -149,13 +149,13 @@ cp /tmp/minecraftinstall_files/paper.jar $dossier_spigotinstall/paper.jar
 
 
 bungeecord_install() {
-dossier_bungeeinstall=$(whiptail --title "McInstall" --inputbox "In which directory do you want to install your Bungeecord server? (Example: /home/bungee and no /home/bungee/)" 10 60  3>&1 1>&2 2>&3)
+dossier_bungeeinstall=$(whiptail --title "Paper Install" --inputbox "In which directory do you want to install your Bungeecord server? (Example: /home/bungee and no /home/bungee/)" 10 60  3>&1 1>&2 2>&3)
 cd $dossier_bungeeinstall 2> /dev/null
 
 if cd $dossier_bungeeinstall 2> /dev/null; then echo " "  ; else echo -e "\e[32mThe folder does not exist therefore it has been created.\e[0m" && mkdir -p $dossier_bungeeinstall ; fi
 
 cd $dossier_bungeeinstall
-if (whiptail --title "McInstall" --yes-button "I agree" --no-button "I disagree" --yesno "The script will install the latest version of BungeeCord using the official Spigot's official Jenkins page. That means your machine will download the BungeeCord.jar and the prerequisites itself. This operation may take a while depending of your Internet connexion. By continuing you accept Spigot's and Mojang's EULAs." 20 80) then
+if (whiptail --title "Paper Install" --yes-button "I agree" --no-button "I disagree" --yesno "The script will install the latest version of BungeeCord using the official Spigot's official Jenkins page. That means your machine will download the BungeeCord.jar and the prerequisites itself. This operation may take a while depending of your Internet connexion. By continuing you accept Spigot's and Mojang's EULAs." 20 80) then
 screen -dm bash -c 'wget https://ci.md-5.net/job/BungeeCord/lastSuccessfulBuild/artifact/bootstrap/target/BungeeCord.jar; wget https://ci.md-5.net/job/BungeeCord/lastSuccessfulBuild/artifact/module/cmd-alert/target/cmd_alert.jar; wget https://ci.md-5.net/job/BungeeCord/lastSuccessfulBuild/artifact/module/cmd-find/target/cmd_find.jar; wget https://ci.md-5.net/job/BungeeCord/lastSuccessfulBuild/artifact/module/cmd-list/target/cmd_list.jar; wget https://ci.md-5.net/job/BungeeCord/lastSuccessfulBuild/artifact/module/cmd-send/target/cmd_send.jar; wget https://ci.md-5.net/job/BungeeCord/lastSuccessfulBuild/artifact/module/cmd-server/target/cmd_server.jar; wget https://ci.md-5.net/job/BungeeCord/lastSuccessfulBuild/artifact/module/reconnect-yaml/target/reconnect_yaml.jar; curl https://uploads.admlbs.fr/download.php?file=launch_bungee.sh --output launch.sh;'
 
 cd $dossier_bungeeinstall
@@ -186,8 +186,8 @@ cd $dossier_bungeeinstall
             echo $percentage
             percentage=$(expr $percentage + 1)
         done
-} | whiptail --title "McInstall" --gauge "Downloading files...." 8 78 0
-RAM=$(whiptail --title "McInstall" --inputbox "How much RAM do you want to allocate to your server ? (Express it in G or M, Example : 2G or 2000M )" 10 60  3>&1 1>&2 2>&3)
+} | whiptail --title "Paper Install" --gauge "Downloading files...." 8 78 0
+RAM=$(whiptail --title "Paper Install" --inputbox "How much RAM do you want to allocate to your server ? (Express it in G or M, Example : 2G or 2000M )" 10 60  3>&1 1>&2 2>&3)
 sed -i "s/2G/$RAM /g" $dossier_bungeeinstall/launch.sh
 echo "Directory : $dossier_bungeeinstall" >> $dossier_bungeeinstall/INFORMATIONS.txt
 echo "Allocated RAM : $RAM" >> $dossier_bungeeinstall/INFORMATIONS.txt
@@ -200,21 +200,21 @@ fi
 }
 
 spigotbungee_install () {
-whiptail --title "McInstall" --msgbox "The script will first install Bungeecord and then install Paper." 20 80
+whiptail --title "Paper Install" --msgbox "The script will first install Bungeecord and then install Paper." 20 80
 bungeecord_install
-whiptail --title "McInstall" --msgbox "All the BungeeCord's files have been downloaded. Because you chose to install both Bungee and Paper, the server will not be started by the script. All the configurations files and other files are stored in $dossier_bungeeinstall" 20 80
-whiptail --title "McInstall" --msgbox "Command to start the server : sh $dossier_bungeeinstall/launch.sh
+whiptail --title "Paper Install" --msgbox "All the BungeeCord's files have been downloaded. Because you chose to install both Bungee and Paper, the server will not be started by the script. All the configurations files and other files are stored in $dossier_bungeeinstall" 20 80
+whiptail --title "Paper Install" --msgbox "Command to start the server : sh $dossier_bungeeinstall/launch.sh
 To view the console : screen -r bungee
 All of the informations are available in the INFORMATIONS.txt file." 20 80
 spigot_install
-whiptail --title "McInstall" --msgbox "All the Paper's files have been downloaded. Because you chose to install both Bungee and Paper, the server will not be started by the script. All the configurations files and other files are stored in $dossier" 20 80
-whiptail --title "McInstall" --msgbox "Command to start the server : sh $dossier/launch.sh
+whiptail --title "Paper Install" --msgbox "All the Paper's files have been downloaded. Because you chose to install both Bungee and Paper, the server will not be started by the script. All the configurations files and other files are stored in $dossier" 20 80
+whiptail --title "Paper Install" --msgbox "Command to start the server : sh $dossier/launch.sh
 To view the console : screen -r $servername
 All of the informations are available in the INFORMATIONS.txt file." 20 80
 
 }
 help_message () {
-    echo "              McInstall Commands"
+    echo "              Paper Install Commands"
 echo "          info : Shows infos about the script"
 echo "          update : Update the script"
 echo "          install : Installs a bungee or a Paper server"
@@ -237,7 +237,7 @@ if [ "$command" ==  "install" ];
  then
  apt-get --force-yes --yes install curl
   updatercheck_when_install
-    echo "--------------------------------------- McInstall -------------------------------"
+    echo "--------------------------------------- Paper Install -------------------------------"
     download_prerequis_vb
     bash -c './prerequis  >/dev/null 2>&1'
 {
@@ -253,15 +253,15 @@ if [ "$command" ==  "install" ];
         
         echo 100
         sleep 2
-} | whiptail --title "McInstall" --gauge "Installing prerequisite packages" 8 78 0
+} | whiptail --title "Paper Install" --gauge "Installing prerequisite packages" 8 78 0
 git config --global --unset core.autocrlf
 clear
 echo -e "\033[32m===================================== Installation =====================================\e[0m"
 echo -e "\033[33m===================================== Server type =======================================\e[0m"
-whiptail --title "McInstall" --msgbox "This script allows you to install a Paper server and / or a Bungeecord server.
+whiptail --title "Paper Install" --msgbox "This script allows you to install a Paper server and / or a Bungeecord server.
 A Paper server is an optimized Minecraft server that allows you to install plugins to customize your server.
 A Bungeecord server is a "proxy" that allows you to link different Paper/Spigot servers between each other." 20 80
-OPTION=$(whiptail --nocancel --title "McInstall" --menu "Which type of server do you want to install ?" 15 60 4 \
+OPTION=$(whiptail --nocancel --title "Paper Install" --menu "Which type of server do you want to install ?" 15 60 4 \
 "1" "Paper only" \
 "2" "Bungeecord only" \
 "3" "Paper and bungeecord" 3>&1 1>&2 2>&3)
@@ -273,8 +273,8 @@ else
 
 if [ "$OPTION" = 2 ]; then
      bungeecord_install
-     whiptail --title "McInstall" --msgbox "All the BungeeCord's files have been downloaded. The script will start the server for the first time. All the configurations files and other files are stored in $dossier" 20 80
-whiptail --title "McInstall" --msgbox "Command to start the server : sh $dossier_bungeeinstall/launch.sh
+     whiptail --title "Paper Install" --msgbox "All the BungeeCord's files have been downloaded. The script will start the server for the first time. All the configurations files and other files are stored in $dossier" 20 80
+whiptail --title "Paper Install" --msgbox "Command to start the server : sh $dossier_bungeeinstall/launch.sh
 To view the console : screen -r bungee
 All of the informations are available in the INFORMATIONS.txt file." 20 80
 cd $dossier_bungeeinstall
@@ -292,7 +292,7 @@ fi
 
 fi
   if [ "$command" == "info" ]; then
-    echo "------------------------------- McInstall -------------------------------"
+    echo "------------------------------- Paper Install -------------------------------"
 echo -e "\033[32m===================================== Infos =====================================\e[0m"
 echo "Version : $ACTUAL_VERSION Latest Version : $LATEST_VERSION"
 echo "Developper : Adam - LaaBaSe"
