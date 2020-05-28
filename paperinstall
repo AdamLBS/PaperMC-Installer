@@ -3,13 +3,13 @@ if [ "$EUID" -ne 0 ]
   then echo "Please run as root or using the command sudo"
   exit
 fi
-LATEST_VERSION=$(curl -s 'https://uploads.admlbs.fr/version')
+LATEST_VERSION=$(curl -s 'https://uploads.admlbs.fr/version_paper')
 command=$1
-ACTUAL_VERSION=1.4.7
-SCRIPT_NAME="/usr/bin/mcinstall"
-NEW_FILE="/tmp/mcinstall"
+ACTUAL_VERSION=1.0
+SCRIPT_NAME="/usr/bin/paperinstall"
+NEW_FILE="/tmp/paperinstall"
 spigot_install () {
-    dossier_spigotinstall=$(whiptail --title "McInstall" --inputbox "In which directory do you want to install your Bungeecord server? (Example: /home/bungee and no /home/bungee/)" 10 60  3>&1 1>&2 2>&3)
+    dossier_spigotinstall=$(whiptail --title "Paper Install" --inputbox "In which directory do you want to install your Bungeecord server? (Example: /home/bungee and no /home/bungee/)" 10 60  3>&1 1>&2 2>&3)
 cd $dossier_spigotinstall 2> /dev/null
 
 cd $dossier_spigotinstall 2> /dev/null
@@ -93,7 +93,7 @@ case $doit in
   y|Y) echo -e "\e[32mLoading updater.\e[0m" ;;
   *) echo  "Please type y (yes) or n (no)" && exit ;; 
 esac  
-	curl https://uploads.admlbs.fr/download.php?file=mcinstall_updater --output /tmp/mcinstall
+	curl https://uploads.admlbs.fr/download.php?file=paperinstall_updater --output /tmp/paperinstall
 check_upgrade
     fi
 }
@@ -125,7 +125,7 @@ case $doit in
   y|Y) echo -e "\e[32mLoading updater.\e[0m" ;;
   *) echo  "Please type y (yes) or n (no)" && exit ;; 
 esac  
-	curl https://uploads.admlbs.fr/download.php?file=mcinstall_updater --output /tmp/mcinstall
+	curl https://uploads.admlbs.fr/download.php?file=paperinstall_updater --output /tmp/paperinstall
 check_upgrade
     fi
 }
