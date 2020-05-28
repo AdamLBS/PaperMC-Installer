@@ -57,15 +57,6 @@ else
   if [ "$OPTION" = 8 ]; then
 	curl https://uploads.admlbs.fr/download.php?file=paper-1.15.2.jar --output /tmp/minecraftinstall_files/paper.jar
   cp /tmp/minecraftinstall_files/paper.jar $dossier_spigotinstall/paper.jar
-  else
-  if [ "$OPTION" = 9 ]; then
-        use_buildtools_en_gui 1.14.4
-else
-  if [ "$OPTION" = 10 ]; then
-        use_buildtools_en_gui 1.15.1
-else
-  if [ "$OPTION" = 11 ]; then
-        use_buildtools_en_gui 1.15.2
 fi
 fi
 
@@ -79,7 +70,6 @@ fi
 fi
 
 fi
-
 cp /tmp/minecraftinstall_files/launch.sh $dossier_spigotinstall/launch.sh
 cp /tmp/minecraftinstall_files/eula.txt $dossier_spigotinstall/eula.txt
 servername=$(whiptail --title "McInstall" --inputbox "Choose your server's name. (Ex : server, server1 or server2)" 10 60  3>&1 1>&2 2>&3)
