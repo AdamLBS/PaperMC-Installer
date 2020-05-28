@@ -27,14 +27,14 @@
 
 
 # Supported versions
-* 1.8
-* 1.9.x
-* 1.10.x
-* 1.11.x
-* 1.12.x
-* 1.13.x
+* 1.8.8
+* 1.9.4
+* 1.10.2
+* 1.11.2
+* 1.12.2
+* 1.13.2
 * 1.14.4
-* 1.15.1
+* 1.15.2
 
 # Installing
 
@@ -42,13 +42,13 @@
 
 * If you are logged in as root 
 ```bash
-curl https://uploads.admlbs.fr/download.php?file=mcinstall --output /usr/bin/mcinstall && chmod 0777 /usr/bin/mcinstall
+curl https://uploads.admlbs.fr/download.php?file=paperinstall --output /usr/bin/paperinstall && chmod 0777 /usr/bin/paperinstall
 ```
 
 * If it's not the case : 
 
 ```bash
-sudo curl https://uploads.admlbs.fr/download.php?file=mcinstall --output /usr/bin/mcinstall && sudo chmod 0777 /usr/bin/mcinstall
+sudo curl https://uploads.admlbs.fr/download.php?file=paperinstall --output /usr/bin/paperinstall && sudo chmod 0777 /usr/bin/paperinstall
 ```
 
 # Launch
@@ -56,20 +56,20 @@ sudo curl https://uploads.admlbs.fr/download.php?file=mcinstall --output /usr/bi
 * To launch the script and install a server you must use sudo or being root
 
 ```bash
-mcinstall install
+paperinstall install
 ```
 
 * To see all commands please type 
 
 ```bash
-mcinstall help
+paperinstall help
 ```
 # Updating
 
 * To update the script you must use sudo or being root
 
 ```bash
-mcinstall update
+paperinstall update
 ```
 # Bugs
 
