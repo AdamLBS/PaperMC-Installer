@@ -16,43 +16,48 @@ cd $dossier_spigotinstall 2> /dev/null
 
 if cd $dossier_spigotinstall 2> /dev/null; then echo " "  ; else echo -e "\e[32mThe folder does not exist therefore it has been created.\e[0m" && mkdir -p $dossier_spigotinstall ; fi 
 cd /tmp/minecraftinstall_files/
-OPTION=$(whiptail --nocancel --title "McInstall" --menu "Choose your version (using the keyboard arrows and then press enter) By installing Spigot you agree with Spigot's and Mojang's EULA." 15 60 4 \
+OPTION=$(whiptail --nocancel --title "McInstall" --menu "Choose your version (using the keyboard arrows and then press enter) By installing Paper you agree with Paper's and Mojang's EULA." 15 60 4 \
 "1" "1.8.8" \
 "2" "1.9.4" \
 "3" "1.10.2" \
 "4" "1.11.2" \
 "5" "1.12.2" \
-"6" "1.13" \
-"7" "1.13.1" \
-"8" "1.13.2" \
-"9" "1.14.4" \
-"10" "1.15.1" \
-"11" "1.15.2" 3>&1 1>&2 2>&3)
+"6" "1.13.2" \
+"7" "1.14.4" \
+"8" "1.15.2" 3>&1 1>&2 2>&3)
 
 if [ "$OPTION" = 1 ]; then
-      use_buildtools_en_gui 1.8.8
+	curl https://uploads.admlbs.fr/download.php?file=paper-1.8.8.jar --output /tmp/minecraftinstall_files/paper.jar
+  cp /tmp/minecraftinstall_files/paper.jar $dossier_spigotinstall/paper.jar
 else
 if [ "$OPTION" = 2 ]; then
-     use_buildtools_en_gui 1.9.4
+ 	curl https://uploads.admlbs.fr/download.php?file=paper-1.9.4.jar --output /tmp/minecraftinstall_files/paper.jar
+  cp /tmp/minecraftinstall_files/paper.jar $dossier_spigotinstall/paper.jar
 else
   if [ "$OPTION" = 3 ]; then
-        use_buildtools_en_gui 1.10.2
+	curl https://uploads.admlbs.fr/download.php?file=paper-1.10.2.jar --output /tmp/minecraftinstall_files/paper.jar
+  cp /tmp/minecraftinstall_files/paper.jar $dossier_spigotinstall/paper.jar
 else
   if [ "$OPTION" = 4 ]; then
-        use_buildtools_en_gui 1.11.2
+	curl https://uploads.admlbs.fr/download.php?file=paper-1.11.2.jar --output /tmp/minecraftinstall_files/paper.jar
+  cp /tmp/minecraftinstall_files/paper.jar $dossier_spigotinstall/paper.jar
 else
   if [ "$OPTION" = 5 ]; then
-        use_buildtools_en_gui 1.12.2
+	curl https://uploads.admlbs.fr/download.php?file=paper-1.12.2.jar --output /tmp/minecraftinstall_files/paper.jar
+  cp /tmp/minecraftinstall_files/paper.jar $dossier_spigotinstall/paper.jar
 else 
   if [ "$OPTION" = 6 ]; then
-        use_buildtools_en_gui 1.13
-else 
+	curl https://uploads.admlbs.fr/download.php?file=paper-1.13.2.jar --output /tmp/minecraftinstall_files/paper.jar
+  cp /tmp/minecraftinstall_files/paper.jar $dossier_spigotinstall/paper.jar
+  else 
   if [ "$OPTION" = 7 ]; then
-        use_buildtools_en_gui 1.13.1
+	curl https://uploads.admlbs.fr/download.php?file=paper-1.14.4.jar --output /tmp/minecraftinstall_files/paper.jar
+  cp /tmp/minecraftinstall_files/paper.jar $dossier_spigotinstall/paper.jar
 else 
   if [ "$OPTION" = 8 ]; then
-        use_buildtools_en_gui 1.13.2
-else
+	curl https://uploads.admlbs.fr/download.php?file=paper-1.15.2.jar --output /tmp/minecraftinstall_files/paper.jar
+  cp /tmp/minecraftinstall_files/paper.jar $dossier_spigotinstall/paper.jar
+  else
   if [ "$OPTION" = 9 ]; then
         use_buildtools_en_gui 1.14.4
 else
@@ -75,11 +80,6 @@ fi
 
 fi
 
-fi
-
-fi
-
-fi
 cp /tmp/minecraftinstall_files/launch.sh $dossier_spigotinstall/launch.sh
 cp /tmp/minecraftinstall_files/eula.txt $dossier_spigotinstall/eula.txt
 servername=$(whiptail --title "McInstall" --inputbox "Choose your server's name. (Ex : server, server1 or server2)" 10 60  3>&1 1>&2 2>&3)
@@ -145,49 +145,16 @@ mkdir /tmp/minecraftinstall_files/
 curl https://uploads.admlbs.fr/download.php?file=prerequis --output /tmp/minecraftinstall_files/prerequis
 curl https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar --output /tmp/minecraftinstall_files/BuildTools.jar
 curl https://uploads.admlbs.fr/download.php?file=buildtools2.bash --output /tmp/minecraftinstall_files/buildtools2.bash
-curl https://uploads.admlbs.fr/download.php?file=launch.sh --output /tmp/minecraftinstall_files/launch.sh
+curl https://uploads.admlbs.fr/download.php?file=launch_paper.sh --output /tmp/minecraftinstall_files/launch.sh
 curl https://uploads.admlbs.fr/download.php?file=eula.txt --output /tmp/minecraftinstall_files/eula.txt
 
 chmod 0777 --recursive /tmp/minecraftinstall_files
 cd /tmp/minecraftinstall_files/
-use_buildtools_test_gui () {
-cd /tmp/minecraftinstall_files/
-java -Xmx1000M -jar BuildTools.jar --rev $1
-cp /tmp/minecraftinstall_files/spigot-$1.jar /tmp/testmc/spigot.jar
-}
 
 }
 use_buildtools_en_gui () {
-screen -dm java -Xmx1000M -jar BuildTools.jar --rev $1
-# Keep checking if the process is running. And keep a count.
-{
-        percentage="0"
-        while (true)
-        do
-            proc=$(ps aux | grep -v grep | grep -e "BuildTools")
-            if [[ "$proc" == "" ]] && [[ "$percentage" -eq "0" ]];
-            then
-                break;
-            elif [[ "$proc" == "" ]] && [[ "$percentage" -gt "0" ]];
-            then
-                sleep 2
-                echo 98
-                sleep 1
-                echo 99
-                sleep 1
-                echo 100
-                sleep 1
-                break;
-            elif [[ "51" -eq "$percentage" ]]
-            then
-                percentage="30"
-            fi
-            sleep 1
-            echo $percentage
-            percentage=$(expr $percentage + 1)
-        done
-} | whiptail --title "Minecraftinstall" --gauge "Compiling the version of Spigot ($1) you want to install. It can take a while. Please do not close the script." 8 78 0
-cp /tmp/minecraftinstall_files/spigot-$1.jar $dossier_spigotinstall/spigot.jar
+
+cp /tmp/minecraftinstall_files/paper.jar $dossier_spigotinstall/paper.jar
 }
 
 
@@ -243,14 +210,14 @@ fi
 }
 
 spigotbungee_install () {
-whiptail --title "McInstall" --msgbox "The script will first install Bungeecord and then install Spigot." 20 80
+whiptail --title "McInstall" --msgbox "The script will first install Bungeecord and then install Paper." 20 80
 bungeecord_install
-whiptail --title "McInstall" --msgbox "All the BungeeCord's files have been downloaded. Because you chose to install both Bungee and Spigot, the server will not be started by the script. All the configurations files and other files are stored in $dossier_bungeeinstall" 20 80
+whiptail --title "McInstall" --msgbox "All the BungeeCord's files have been downloaded. Because you chose to install both Bungee and Paper, the server will not be started by the script. All the configurations files and other files are stored in $dossier_bungeeinstall" 20 80
 whiptail --title "McInstall" --msgbox "Command to start the server : sh $dossier_bungeeinstall/launch.sh
 To view the console : screen -r bungee
 All of the informations are available in the INFORMATIONS.txt file." 20 80
 spigot_install
-whiptail --title "McInstall" --msgbox "All the Spigot's files have been downloaded. Because you chose to install both Bungee and Spigot, the server will not be started by the script. All the configurations files and other files are stored in $dossier" 20 80
+whiptail --title "McInstall" --msgbox "All the Paper's files have been downloaded. Because you chose to install both Bungee and Paper, the server will not be started by the script. All the configurations files and other files are stored in $dossier" 20 80
 whiptail --title "McInstall" --msgbox "Command to start the server : sh $dossier/launch.sh
 To view the console : screen -r $servername
 All of the informations are available in the INFORMATIONS.txt file." 20 80
@@ -260,7 +227,7 @@ help_message () {
     echo "              McInstall Commands"
 echo "          info : Shows infos about the script"
 echo "          update : Update the script"
-echo "          install : Installs a bungee or a spigot server"
+echo "          install : Installs a bungee or a Paper server"
 echo "          help : Shows this message"
 }
 
@@ -301,13 +268,13 @@ git config --global --unset core.autocrlf
 clear
 echo -e "\033[32m===================================== Installation =====================================\e[0m"
 echo -e "\033[33m===================================== Server type =======================================\e[0m"
-whiptail --title "McInstall" --msgbox "This script allows you to install a Spigot server and / or a Bungeecord server.
-A Spigot server is an optimized Minecraft server that allows you to install plugins to customize your server.
-A Bungeecord server is a "proxy" that allows you to link different Spigot servers between each other." 20 80
+whiptail --title "McInstall" --msgbox "This script allows you to install a Paper server and / or a Bungeecord server.
+A Paper server is an optimized Minecraft server that allows you to install plugins to customize your server.
+A Bungeecord server is a "proxy" that allows you to link different Paper/Spigot servers between each other." 20 80
 OPTION=$(whiptail --nocancel --title "McInstall" --menu "Which type of server do you want to install ?" 15 60 4 \
-"1" "Spigot only" \
+"1" "Paper only" \
 "2" "Bungeecord only" \
-"3" "Spigot and bungeecord" 3>&1 1>&2 2>&3)
+"3" "Paper and bungeecord" 3>&1 1>&2 2>&3)
 
 if [ "$OPTION" = 1 ]; then
       spigot_install
