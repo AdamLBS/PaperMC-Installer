@@ -1,4 +1,4 @@
-# Bungeecord and Spigot installer for Linux
+# Bungeecord and Paper installer for Linux (forked from AdamLBS/mcinstall for PaperMC)
 
 * [Requirements](#requirements)
 * [Features](#features)
